@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useContext } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./StockDashBoard.css";
+import secrets from "./secrets";
 
 function WelcomeHeader() {
   return <div>"Welcome!"</div>;
@@ -151,7 +152,7 @@ function StockComponent({ formInputs }) {
       setError(null);
 
       fetch(
-        `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${formInputs.symbol}&apikey=demo`
+        `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${formInputs.symbol}&apikey=${secrets.ALPHA_VANTAGE_API_KEY}`
       )
         .then((response) => {
           if (!response.ok) {
@@ -160,6 +161,7 @@ function StockComponent({ formInputs }) {
           return response.json();
         })
         .then((data) => {
+          console.log(data);
           setStockData(data);
         })
         .catch((error) => {
