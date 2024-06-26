@@ -86,7 +86,9 @@ function UserFormInputs({ setFormMessage, setFormInputs }) {
         purchasePrice: purchasePrice,
         purchaseAmount: purchaseAmount,
       });
-      setFormMessage("Form Submitted Successfully!");
+      setFormMessage(
+        "Form Submitted Successfully! Submit to Add More Stocks to Your Stock List!"
+      );
     } else {
       let errorMessage = "Please fill in the following fields: ";
       if (!symbol) errorMessage += "stock ticker, ";
@@ -190,13 +192,21 @@ function StockComponent({ formInputs }) {
 }
 
 function ComponentDisplay({ formInputs, stockData }) {
+  const [isDeleted, setIsDeleted] = useState(false);
   const currentPrice =
     stockData["Global Quote"] && stockData["Global Quote"]["05. price"];
 
   const profitLoss =
     (currentPrice - formInputs.purchasePrice) * formInputs.purchaseAmount;
 
-  if (formInputs.symbol && stockData["Global Quote"]) {
+  const handleOnClick = (e) => {
+    console.log("Delete Stock");
+    setIsDeleted(true);
+  };
+
+  if (isDeleted) {
+    return null;
+  } else if (formInputs.symbol && stockData["Global Quote"]) {
     return (
       <div>
         <h1>Stock Symbol: {formInputs.symbol}</h1>
@@ -204,6 +214,7 @@ function ComponentDisplay({ formInputs, stockData }) {
         <p>Purchase Price: {formInputs.purchasePrice}</p>
         <p>Latest Price: {currentPrice}</p>
         <p>Profit/Loss: {profitLoss}</p>
+        <button onClick={handleOnClick}>Delete Stock</button>
       </div>
     );
   } else {
@@ -212,7 +223,7 @@ function ComponentDisplay({ formInputs, stockData }) {
 }
 
 function StockList({ formInputs }) {
-  const [stockList, setStockList] = useState([]);
+  const [stockList, setStockList] = useState([]); // Initialize stockList with an empty array of StockComponents.
 
   useEffect(() => {
     if (Object.keys(formInputs).length !== 0) {
@@ -227,8 +238,8 @@ function StockList({ formInputs }) {
         {stockList.length === 0 ? (
           <p>No stocks added yet.</p>
         ) : (
-          stockList.map((stock, index) => (
-            <StockComponent key={index} formInputs={stock} />
+          stockList.map((inputs, index) => (
+            <StockComponent key={index} formInputs={inputs} />
           ))
         )}
       </div>
