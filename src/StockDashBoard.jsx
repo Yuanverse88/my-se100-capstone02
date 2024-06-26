@@ -8,14 +8,14 @@ function WelcomeHeader() {
   return <div>"Welcome!"</div>;
 }
 
-function FormInput({ id, label, type, step, value, onChange }) {
+function FormInput({ id, label, type, placeHolder, value, onChange }) {
   return (
     <div className="form-input">
       <label htmlFor={id}>{label}</label>
       <input
         id={id}
         type={type}
-        step={step}
+        placeHolder={placeHolder}
         value={value}
         onChange={onChange}
       />
@@ -37,7 +37,7 @@ function StockForm({
       id: "stockSymbol",
       label: "Enter Stock Ticker",
       type: "text",
-      step: "0.1",
+      placeHolder: "IBM",
       value: symbol,
       onChange: handleChangeSymbol,
     },
@@ -45,7 +45,7 @@ function StockForm({
       id: "purchasePrice",
       label: "Enter Purchase Price",
       type: "number",
-      step: "0.1",
+      placeHolder: "2.03",
       value: purchasePrice,
       onChange: handleChangePurchasePrice,
     },
@@ -53,7 +53,7 @@ function StockForm({
       id: "purchaseAmount",
       label: "Enter Purchase Amount",
       type: "number",
-      step: "0.1",
+      placeHolder: "10.29",
       value: purchaseAmount,
       onChange: handleChangePurchaseAmount,
     },
