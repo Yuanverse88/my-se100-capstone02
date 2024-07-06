@@ -53,7 +53,7 @@ function StockForm({
       id: "purchaseAmount",
       label: "Enter Purchase Amount",
       type: "number",
-      placeHolder: "10.29",
+      placeHolder: "10.2",
       value: purchaseAmount,
       onChange: handleChangePurchaseAmount,
     },
