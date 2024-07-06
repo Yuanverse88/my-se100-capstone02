@@ -25,4 +25,4 @@ dist-ssr
 
 
 # secrets
-src/secrets.js
+# src/secrets.js
